@@ -1,86 +1,121 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>survey_demo</title>
     <style>
-        /*不可用*/
-        .activeColor{
-            color:#0f0;
-        }
-        /*不可用*/
-        .disableColor{
-            color:#ccc;
-        }
+      /*不可用*/
+      .activeColor {
+        color: black;
+      }
+      /*不可用*/
+      .disableColor {
+        color: #ccc;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <survey :surveys="surveyList" v-model="activeKey" :sex="sex" :hobby="hobby" :introduce="introduce" :active-color="activeColor" :disable-color="disableColor">
-            <template slot="surveyTitle" scope="props">
-                <div v-if="props.surveyId == activeKey">
-                    <span v-text="props.surveyId"></span>
-                    <span>.</span>
-                    <span v-text="props.surveyTitle"></span>
-                </div>
-                <div v-if="props.surveyId == activeKey">
-                    <div v-if="props.surveyType == 'radio'" v-for="sexVal in props.surveyValue">
-                        <input :id="sexVal" type="radio" v-model="sex" :value="sexVal"><label :for="sexVal" v-text="sexVal"></label>
-                    </div>
-                    <div v-if="props.surveyType == 'checkbox'" v-for="hobbyVal in props.surveyValue">
-                        <input :id="hobbyVal" type="radio" v-model="hobby" :value="hobbyVal"><label :for="hobbyVal" v-text="hobbyVal"></label>
-                    </div>
-                    <div v-if="props.surveyType == 'textarea'">
+      <survey
+        :surveys="surveyList"
+        v-model="activeKey"
+        :a="a"
+        :b="b"
+        :c="c"
+        :active-color="activeColor"
+        :disable-color="disableColor"
+      >
+        <template slot="surveyTitle" scope="props">
+          <div v-if="props.surveyId == activeKey">
+            <span v-text="props.surveyId"></span>
+            <span>.</span>
+            <span v-text="props.surveyTitle"></span>
+          </div>
+          <div v-if="props.surveyId == activeKey">
+            <div
+              v-if="props.surveyType == 'one'"
+              v-for="firstVal in props.surveyValue"
+            >
+              <input
+                :id="firstVal"
+                type="radio"
+                v-model="a"
+                :value="firstVal"
+              /><label :for="firstVal" v-text="firstVal"></label>
+            </div>
+            <div
+              v-if="props.surveyType == 'two'"
+              v-for="secondVal in props.surveyValue"
+            >
+              <input
+                :id="secondVal"
+                type="radio"
+                v-model="b"
+                :value="secondVal"
+              /><label :for="secondVal" v-text="secondVal"></label>
+            </div>
+            <div
+              v-if="props.surveyType == 'three'"
+              v-for="thirdVal in props.surveyValue"
+            >
+              <input
+                :id="thirdVal"
+                type="radio"
+                v-model="c"
+                :value="thirdVal"
+              /><label :for="thirdVal" v-text="thirdVal"></label>
+            </div>
+            <!-- <div v-if="props.surveyType == 'textarea'">
                         <textarea :id="props.surveyId" v-model="introduce" placeholder="不少于100字"></textarea>
-                    </div>
-                </div>
-            </template>
-        </survey>
+                    </div> -->
+          </div>
+        </template>
+      </survey>
     </div>
     <script src="vue.js"></script>
     <script src="survey.js"></script>
     <script src="myButton.js"></script>
     <script>
-        var app = new Vue({
-            el: '#app',
-            data:{
-                activeKey:1,
-                sex:'',
-                hobby:'',
-                introduce:'',
-                surveyList:[
-                    {
-                        id:1,
-                        type:'radio',
-                        topic:'sex',
-                        title:'请问您的性别是什么?',
-                        value:['男','女','保留']
-                    },
-                    {
-                        id:2,
-                        type:'checkbox',
-                        topic:'hobby',
-                        title:'请选择您的兴趣爱好?',
-                        value:['看书','游泳','跑步','看电影']
-                    },
-                    {
-                        id:3,
-                        type:'textarea',
-                        topic:'introduce',
-                        title:'请介绍一下自己',
-                        value:''
-                    }
-                ],
-                activeColor:'activeColor',
-                disableColor:'disableColor',
+      var app = new Vue({
+        el: "#app",
+        data: {
+          activeKey: 1,
+          a: "",
+          b: "",
+          c: "",
+          introduce: "",
+          surveyList: [
+            {
+              id: 1,
+              type: "one",
+              topic: "a",
+              title: "不注意细节或因粗心出错（如：在做作业中）",
+              value: ["从不", "偶尔", "经常", "总是"],
             },
-           watch:{
-                activeKey:function (val) {
-                    console.log("父类value："+val)
-                }
-           }
- 
-        })
+            {
+              id: 2,
+              type: "two",
+              topic: "b",
+              title: "难以在完成任务中保持注意",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 3,
+              type: "three",
+              topic: "c",
+              title: "请介绍一下自己",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+          ],
+          activeColor: "activeColor",
+          disableColor: "disableColor",
+        },
+        watch: {
+          activeKey: function (val) {
+            console.log("父类value：" + val);
+          },
+        },
+      });
     </script>
-</body>
+  </body>
 </html>
