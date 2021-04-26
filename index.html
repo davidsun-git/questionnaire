@@ -2,68 +2,469 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>survey_demo</title>
+    <title>评估问卷</title>
     <style>
+      .option {
+        /* display: flex; */
+        float: left;
+        margin-right: 80%;
+        font-size: 40px;
+        width: 100%;
+      }
+      .option input[type="radio"] {
+        height: 40px;
+        width: 40px;
+      }
       /*不可用*/
       .activeColor {
         color: black;
       }
       /*不可用*/
       .disableColor {
-        color: #ccc;
+        color: grey;
+      }
+      .title {
+        text-align: center;
+      }
+      .title p {
+        float: left;
+        font-size: 40px;
       }
     </style>
   </head>
-  <body>
+  <body style="background: #f7f7f7">
     <div id="app">
       <survey
+        v-if="showQuestion"
         :surveys="surveyList"
         v-model="activeKey"
         :a="a"
         :b="b"
         :c="c"
+        :d="d"
+        :e="e"
+        :f="f"
+        :g="g"
+        :h="h"
+        :i="i"
+        :j="j"
+        :k="k"
+        :l="l"
+        :m="m"
+        :n="n"
+        :o="o"
+        :p="p"
+        :q="q"
+        :r="r"
         :active-color="activeColor"
         :disable-color="disableColor"
+        @score-calculate="calculateScore"
       >
         <template slot="surveyTitle" scope="props">
-          <div v-if="props.surveyId == activeKey">
-            <span v-text="props.surveyId"></span>
-            <span>.</span>
-            <span v-text="props.surveyTitle"></span>
+          <div v-if="props.surveyId == activeKey" class="title">
+            <p v-text="props.surveyId"></p>
+            <p>.&nbsp</p>
+            <p
+              v-text="props.surveyTitle"
+              style="width: 90%; text-align: left"
+            ></p>
           </div>
-          <div v-if="props.surveyId == activeKey">
+          <div v-if="props.surveyId == activeKey" class="option">
+            <!-- 1 -->
             <div
               v-if="props.surveyType == 'one'"
               v-for="firstVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
             >
               <input
                 :id="firstVal"
                 type="radio"
                 v-model="a"
                 :value="firstVal"
-              /><label :for="firstVal" v-text="firstVal"></label>
+              /><label
+                style="margin-left: 30px"
+                :for="firstVal"
+                v-text="firstVal"
+              ></label>
             </div>
+            <!-- 2 -->
             <div
               v-if="props.surveyType == 'two'"
               v-for="secondVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
             >
               <input
                 :id="secondVal"
                 type="radio"
                 v-model="b"
                 :value="secondVal"
-              /><label :for="secondVal" v-text="secondVal"></label>
+              /><label
+                style="margin-left: 30px"
+                :for="secondVal"
+                v-text="secondVal"
+              ></label>
             </div>
+            <!-- 3 -->
             <div
               v-if="props.surveyType == 'three'"
               v-for="thirdVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
             >
               <input
                 :id="thirdVal"
                 type="radio"
                 v-model="c"
                 :value="thirdVal"
-              /><label :for="thirdVal" v-text="thirdVal"></label>
+              /><label
+                style="margin-left: 30px"
+                :for="thirdVal"
+                v-text="thirdVal"
+              ></label>
+            </div>
+            <!-- 4 -->
+            <div
+              v-if="props.surveyType == 'four'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="d"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 5 -->
+            <div
+              v-if="props.surveyType == 'five'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="e"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 6 -->
+            <div
+              v-if="props.surveyType == 'six'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="f"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 7 -->
+            <div
+              v-if="props.surveyType == 'seven'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="g"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 8 -->
+            <div
+              v-if="props.surveyType == 'eight'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="h"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 9 -->
+            <div
+              v-if="props.surveyType == 'nine'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="i"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 10 -->
+            <div
+              v-if="props.surveyType == 'ten'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="j"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 11 -->
+            <div
+              v-if="props.surveyType == 'eleven'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="k"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 12 -->
+            <div
+              v-if="props.surveyType == 'twelve'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="l"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 13 -->
+            <div
+              v-if="props.surveyType == 'thirteen'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="m"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 14 -->
+            <div
+              v-if="props.surveyType == 'fourteen'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="n"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 15 -->
+            <div
+              v-if="props.surveyType == 'fifteen'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="o"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 16 -->
+            <div
+              v-if="props.surveyType == 'sixteen'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="p"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 17 -->
+            <div
+              v-if="props.surveyType == 'seventeen'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="q"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
+            </div>
+            <!-- 18 -->
+            <div
+              v-if="props.surveyType == 'eighteen'"
+              v-for="fourVal in props.surveyValue"
+              style="
+                margin-top: 20px;
+                background: white;
+                height: 100px;
+                line-height: 100px;
+              "
+            >
+              <input
+                :id="fourVal"
+                type="radio"
+                v-model="r"
+                :value="fourVal"
+              /><label
+                style="margin-left: 30px"
+                :for="fourVal"
+                v-text="fourVal"
+              ></label>
             </div>
             <!-- <div v-if="props.surveyType == 'textarea'">
                         <textarea :id="props.surveyId" v-model="introduce" placeholder="不少于100字"></textarea>
@@ -71,6 +472,8 @@
           </div>
         </template>
       </survey>
+      <div v-if="!showQuestion" style="font-size: 40px">{{answer1}}</div>
+      <div v-if="!showQuestion" style="font-size: 40px">{{answer2}}</div>
     </div>
     <script src="vue.js"></script>
     <script src="survey.js"></script>
@@ -79,10 +482,32 @@
       var app = new Vue({
         el: "#app",
         data: {
+          showQuestion: true,
+          firstScore: 0,
+          secondScore: 0,
+          answer1: "test",
+          answer2: "test",
+          result1: "",
+          result2: "",
           activeKey: 1,
           a: "",
           b: "",
           c: "",
+          d: "",
+          e: "",
+          f: "",
+          g: "",
+          h: "",
+          i: "",
+          j: "",
+          k: "",
+          l: "",
+          m: "",
+          n: "",
+          o: "",
+          p: "",
+          q: "",
+          r: "",
           introduce: "",
           surveyList: [
             {
@@ -103,17 +528,171 @@
               id: 3,
               type: "three",
               topic: "c",
-              title: "请介绍一下自己",
+              title: "当与他直接说话时似乎不在听",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 4,
+              type: "four",
+              topic: "d",
+              title:
+                "不能遵循一系列指令，不能完成各种活动（并非不愿做或不理解）",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 5,
+              type: "five",
+              topic: "e",
+              title: "难以组织任务或各种活动",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 6,
+              type: "six",
+              topic: "f",
+              title: "躲避、不喜欢或不要做需要动脑筋的事情",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 7,
+              type: "seven",
+              topic: "g",
+              title:
+                "丢失完成任务或活动所必需的东西（如：玩具、作业、铅笔、书）",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 8,
+              type: "eight",
+              topic: "h",
+              title: "易被噪音或其它刺激分心",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 9,
+              type: "nine",
+              topic: "i",
+              title: "日常生活中易健忘",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 10,
+              type: "ten",
+              topic: "j",
+              title: "在座位上手脚不停地动",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 11,
+              type: "eleven",
+              topic: "k",
+              title: "当要求其坐在座位上时，擅自离开",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 12,
+              type: "twelve",
+              topic: "l",
+              title: "当要求其坐在座位上时，过多地跑动或爬动",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 13,
+              type: "thirteen",
+              topic: "m",
+              title: "难以玩游戏或开始安静地玩游戏",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 14,
+              type: "fourteen",
+              topic: "n",
+              title: "不停的动或犹如驱动的马达",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 15,
+              type: "fifteen",
+              topic: "o",
+              title: "说话过多",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 16,
+              type: "sixteen",
+              topic: "p",
+              title: "提问尚未结束，回答已从出口",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 17,
+              type: "seventeen",
+              topic: "q",
+              title: "轮流活动中难以等待",
+              value: ["从不", "偶尔", "经常", "总是"],
+            },
+            {
+              id: 18,
+              type: "eighteen",
+              topic: "r",
+              title: "打断或冲入别人的谈话或游戏",
               value: ["从不", "偶尔", "经常", "总是"],
             },
           ],
           activeColor: "activeColor",
           disableColor: "disableColor",
         },
+        methods: {
+          calculateScore: function (a, b) {
+            debugger;
+            for (var i = 0; i < a.length; i++) {
+              this.firstScore = this.firstScore + a[i];
+            }
+            for (var i = 0; i < b.length; i++) {
+              this.secondScore = this.secondScore + b[i];
+            }
+
+            this.firstScore = this.firstScore / 9;
+            this.secondScore = this.secondScore / 9;
+            debugger;
+            this.showQuestion = false;
+            this.outputResult(this.firstScore, this.secondScore);
+            this.answer1 = `1-9题得分：${this.firstScore.toFixed(2)}，结果为：${
+              this.result1
+            }`;
+            this.answer2 = `10-18题得分：${this.secondScore.toFixed(
+              2
+            )}, 结果为：${this.result2}`;
+          },
+          outputResult: function (a, b) {
+            if (a < 1) {
+              this.result1 = "正常";
+            } else if (a >= 1 && a <= 1.5) {
+              this.result1 = "可疑";
+            } else {
+              this.result1 = "异常";
+            }
+            if (b < 1) {
+              this.result2 = "正常";
+            } else if (a >= 1 && a <= 1.5) {
+              this.result2 = "可疑";
+            } else {
+              this.result2 = "异常";
+            }
+          },
+        },
+
         watch: {
           activeKey: function (val) {
             console.log("父类value：" + val);
           },
+          // c: function (val) {
+          //   debugger;
+          //   this.showQuestion = false;
+          //   this.answer1 = `1-9题得分：${this.firstScore}`;
+          //   this.answer2 = `10-18题得分：${this.secondScore}`;
+
+          // },
         },
       });
     </script>
